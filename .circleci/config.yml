@@ -44,10 +44,10 @@ jobs:
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
       - run:
           name: Change API private key permission
-          command: chmod 400 ./hkvpn.pem
+          command: chmod 400 ~/.ssh/hkvpn.pem
       - run:
           name: Change SSH private key permission
-          command: chmod 400 ./hkvpn.key
+          command: chmod 400 ~/.ssh/hkvpn.key
       - run:
           name: Create Ansible Vault password file
           command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass
