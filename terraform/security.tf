@@ -3,7 +3,7 @@ resource "oci_core_network_security_group" "hkvpn" {
   compartment_id = var.compartment_ocid
   display_name   = var.tag
 
-  freeform_tags {
+  freeform_tags = {
     Name = var.tag
   }
 }

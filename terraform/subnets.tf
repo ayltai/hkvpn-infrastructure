@@ -5,7 +5,7 @@ resource "oci_core_subnet" "hkvpn" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
 
-  freeform_tags {
+  freeform_tags = {
     Name = var.tag
   }
 }

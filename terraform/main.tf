@@ -8,6 +8,11 @@ provider "oci" {
   fingerprint      = var.fingerprint
   private_key_path = var.private_key
   region           = var.region
+  version          = "~> 3.47"
+}
+
+provider "null" {
+  version = "~> 2.1"
 }
 
 output "instance_private_ip" {

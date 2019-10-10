@@ -10,7 +10,7 @@ resource "oci_core_instance" "hkvpn" {
     assign_public_ip = "true"
     hostname_label   = var.hostname
 
-    freeform_tags {
+    freeform_tags = {
       Name = var.tag
     }
   }
@@ -21,11 +21,11 @@ resource "oci_core_instance" "hkvpn" {
     boot_volume_size_in_gbs = var.instance_volume_size
   }
 
-  metadata {
+  metadata = {
     ssh_authorized_keys = var.public_key
   }
 
-  freeform_tags {
+  freeform_tags = {
     Name = var.tag
   }
 

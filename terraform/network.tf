@@ -3,7 +3,7 @@ resource "oci_core_vcn" "hkvpn" {
   cidr_block     = var.vcn_cidr_block
   compartment_id = var.compartment_ocid
 
-  freeform_tags {
+  freeform_tags = {
     Name = var.tag
   }
 }
