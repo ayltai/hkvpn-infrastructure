@@ -35,16 +35,16 @@ jobs:
           command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
       - run:
           name: Create .ssh directory to store keys
-          command: mkdir ~/.ssh
+          command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
       - run:
           name: Configure API private key for provisioning the system
-          command: echo $API_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.pem
+          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
       - run:
           name: Configure SSH private key for accessing the system to be provisioned
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
       - run:
           name: Change API private key permission
-          command: chmod 400 ~/.ssh/hkvpn.pem
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
       - run:
           name: Change SSH private key permission
           command: chmod 400 ~/.ssh/hkvpn.key
