@@ -21,5 +21,5 @@ output "instance_private_ip" {
 }
 
 output "instance_public_id" {
-  value = oci_core_instance.hkvpn.public_ip
+  value = oci_core_public_ip.hkvpn.ip_address
 }
