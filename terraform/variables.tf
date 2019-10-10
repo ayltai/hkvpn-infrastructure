@@ -1,6 +1,6 @@
-variable "private_key" {
-  description = "The path (including filename) of the private key stored on your computer"
-  default     = "~/.ssh/hkvpn.pem"
+variable "ssh_private_key" {
+  description = "The SSH private key used to authenticate with the Compute instance deployed"
+  default     = "~/.ssh/hkvpn.key"
 }
 
 variable "vault_password_file" {

@@ -34,17 +34,20 @@ jobs:
           name: Configure credentials for accessing Terraform Cloud backend
           command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
       - run:
-          name: Create .ssh directory to store SSH keys
+          name: Create .ssh directory to store keys
           command: mkdir ~/.ssh
       - run:
-          name: Configure SSH public key for accessing the system to be provisioned
-          command: echo $SSH_PUBLIC_KEY | base64 -di > ~/.ssh/hkvpn.pub
+          name: Configure API private key for provisioning the system
+          command: echo $API_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.pem
       - run:
           name: Configure SSH private key for accessing the system to be provisioned
-          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.pem
+          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
+      - run:
+          name: Change API private key permission
+          command: chmod 400 ./hkvpn.pem
       - run:
           name: Change SSH private key permission
-          command: chmod 400 ~/.ssh/hkvpn.pem
+          command: chmod 400 ./hkvpn.key
       - run:
           name: Create Ansible Vault password file
           command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass

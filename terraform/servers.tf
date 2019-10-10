@@ -22,7 +22,7 @@ resource "oci_core_instance" "hkvpn" {
   }
 
   metadata = {
-    ssh_authorized_keys = var.public_key
+    ssh_authorized_keys = var.ssh_public_key
   }
 
   freeform_tags = {
@@ -48,7 +48,7 @@ resource "null_resource" "exec" {
       agent       = false
       timeout     = var.timeout
       host        = oci_core_instance.hkvpn.public_ip
-      private_key = var.private_key
+      private_key = file(var.ssh_private_key)
       user        = var.username
     }
   }
@@ -58,9 +58,9 @@ resource "null_resource" "exec" {
       sleep 50;
       >inventory.ini;
       echo "[hkvpn]" | tee -a inventory.ini;
-      echo "${oci_core_instance.hkvpn.public_ip} ansible_user=${var.username} ansible_ssh_private_key_file=${var.private_key}" | tee -a inventory.ini;
+      echo "${oci_core_instance.hkvpn.public_ip} ansible_user=${var.username} ansible_ssh_private_key_file=${var.ssh_private_key}" | tee -a inventory.ini;
       export ANSIBLE_HOST_KEY_CHECKING=False;
-      ansible-playbook -u ${var.username} --private-key ${var.private_key} --vault-password-file ${var.vault_password_file} -i inventory.ini ../ansible/playbook.yml
+      ansible-playbook -u ${var.username} --private-key ${var.ssh_private_key} --vault-password-file ${var.vault_password_file} -i inventory.ini ../ansible/playbook.yml
     EOT
   }
 }
