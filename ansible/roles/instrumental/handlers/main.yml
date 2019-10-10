@@ -1,0 +1,7 @@
+---
+- name: Restart InstrumentalD
+  become: true
+  service:
+    name: instrumentald
+    state: restarted
+  when: service_default_state | default('started') == 'started'

@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Alan Tai
+  description: Install and configure Fail2ban
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+  galaxy_tags:
+    - fail2ban
+    - security
+    - network
+    - system
+dependencies: []

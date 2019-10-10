@@ -1,0 +1,32 @@
+---
+- name: Download InstrumentD setup script
+  become: true
+  get_url:
+    url: https://packagecloud.io/install/repositories/expectedbehavior/instrumental/script.deb.sh
+    dest: /root/instrumental_setup.sh
+
+- name: Set proper permission for InstrumentalD setup script
+  become: true
+  file:
+    path: "/root/instrumental_setup.sh"
+    mode: "u+x"
+
+- name: Setup InstrumentDD repository
+  become: true
+  shell: "/root/instrumental_setup.sh"
+
+- name: Remove InstrumentalD setup script
+  become: true
+  file:
+    path: "/root/instrumental_setup.sh"
+    state: absent
+
+- name: Install InstrumentalD
+  become: true
+  apt:
+    name: instrumentald
+    update_cache: true
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+

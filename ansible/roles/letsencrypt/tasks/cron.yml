@@ -1,0 +1,8 @@
+---
+- name: "Create a cron job to renew Let's Encrypt certificate"
+  cron:
+    name: "Renew Let's Encrypt certificate"
+    minute: "0"
+    hour: "2"
+    weekday: "0"
+    job: certbot renew --quiet >/dev/null 2>&1

@@ -1,0 +1,88 @@
+version: 2
+
+references:
+
+  ## Docker image configuration
+
+  config: &config
+    working_directory: ~/workspace
+    docker:
+      - image: ayltai/hkvpn-infrastructure:latest
+    environment:
+      TERM: dumb
+
+jobs:
+
+  check:
+    <<: *config
+    steps:
+      - checkout
+      - run:
+          name: Check if Terraform scripts are properly formatted
+          command: terraform fmt -check -write=false
+          working_directory: terraform
+      - run:
+          name: Lint Ansible scripts
+          command: ansible-lint ./playbook.yml
+          working_directory: ansible
+
+  deploy:
+    <<: *config
+    steps:
+      - checkout
+      - run:
+          name: Configure credentials for accessing Terraform Cloud backend
+          command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
+      - run:
+          name: Create .ssh directory to store SSH keys
+          command: mkdir ~/.ssh
+      - run:
+          name: Configure SSH public key for accessing the system to be provisioned
+          command: echo $SSH_PUBLIC_KEY | base64 -di > ~/.ssh/hkvpn.pub
+      - run:
+          name: Configure SSH private key for accessing the system to be provisioned
+          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.pem
+      - run:
+          name: Change SSH private key permission
+          command: chmod 400 ~/.ssh/hkvpn.pem
+      - run:
+          name: Create Ansible Vault password file
+          command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass
+      - run:
+          name: Initialize Terraform backend and plugins
+          command: echo 1 | terraform init
+          working_directory: terraform
+      - run:
+          name: Validate the syntax of Terraform scripts
+          command: terraform validate
+          working_directory: terraform
+      - run:
+          name: Plan for the changes
+          command: terraform plan -out main
+          working_directory: terraform
+      - run:
+          name: Apply the changes
+          command: terraform apply main
+          working_directory: terraform
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: ~/client.ovpn
+          destination: client.ovpn
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - check
+      - approval:
+          type: approval
+          requires:
+            - check
+      - deploy:
+          requires:
+            - check
+            - approval
+          filters:
+            branches:
+              only:
+                - master

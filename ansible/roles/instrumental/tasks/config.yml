@@ -1,0 +1,23 @@
+---
+- name: Copy InstrumentalD configuration
+  become: true
+  template:
+    src: instrumentald.toml.j2
+    dest: /etc/instrumentald.toml
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart InstrumentalD
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+
+- name: Set InstrumentalD API key environment variable
+  become: true
+  lineinfile:
+    path: /etc/environment
+    line: "INSTRUMENTAL_API_KEY={{ instrumental_api_key }}"
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'

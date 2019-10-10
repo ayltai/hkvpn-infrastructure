@@ -1,0 +1,9 @@
+---
+- name: Export SSL key password environment variable
+  become: true
+  lineinfile:
+    path: /etc/environment
+    line: "SSL_KEY={{ ssl_key }}"
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'

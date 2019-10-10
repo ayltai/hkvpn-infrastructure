@@ -1,0 +1,7 @@
+---
+- name: Restart Fail2ban
+  become: true
+  service:
+    name: fail2ban
+    state: restarted
+  when: service_default_state | default('started') == 'started'

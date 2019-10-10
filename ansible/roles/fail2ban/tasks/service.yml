@@ -1,0 +1,7 @@
+---
+- name: Create Fail2ban service
+  become: true
+  service:
+    name: fail2ban
+    state: started
+    enabled: yes

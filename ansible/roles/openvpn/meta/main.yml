@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Alan Tai
+  description: Install and configure OpenVPN
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+  galaxy_tags:
+    - vpn
+    - openvpn
+    - ca
+    - certificate authority
+    - privacy
+    - security
+    - encryption
+dependencies: []

@@ -1,0 +1,8 @@
+---
+- name: Install Fail2ban
+  become: true
+  apt:
+    name: fail2ban
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'

@@ -1,0 +1,8 @@
+---
+- name: Restart OpenVPN
+  become: true
+  systemd:
+    name: openvpn@server
+    state: started
+    daemon_reload: yes
+    enabled: yes

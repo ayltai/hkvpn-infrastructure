@@ -1,0 +1,20 @@
+---
+- name: Generate Diffie-Hellman parameters and generate key
+  become: true
+  shell: source vars; yes "" | ./build-dh; openvpn --genkey --secret keys/ta.key
+  args:
+    chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
+    executable: /bin/bash
+
+- name: Copy keys and certificates
+  become: true
+  copy:
+    src: "{{ ansible_env.HOME }}/openvpn-ca/keys/{{ item }}"
+    dest: /etc/openvpn/
+    remote_src: yes
+  with_items:
+    - ca.crt
+    - server.crt
+    - server.key
+    - ta.key
+    - dh2048.pem

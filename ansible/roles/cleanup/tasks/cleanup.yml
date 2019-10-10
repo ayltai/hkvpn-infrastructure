@@ -1,0 +1,9 @@
+---
+- name: Clean up junks
+  become: true
+  apt:
+    autoremove: yes
+    autoclean: yes
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'

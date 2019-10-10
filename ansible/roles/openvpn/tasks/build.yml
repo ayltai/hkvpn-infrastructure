@@ -1,0 +1,14 @@
+---
+- name: Build certificate authority
+  become: true
+  shell: source vars; ./clean-all; yes "" | ./build-ca
+  args:
+    chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
+    executable: /bin/bash
+
+- name: Build key server certificate
+  become: true
+  shell: source vars; ./build-key-server --batch server
+  args:
+    chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
+    executable: /bin/bash

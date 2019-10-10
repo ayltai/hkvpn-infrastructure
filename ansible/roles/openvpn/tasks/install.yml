@@ -1,0 +1,12 @@
+---
+- name: Install OpenVPN
+  become: true
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - openvpn
+      - easy-rsa
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'

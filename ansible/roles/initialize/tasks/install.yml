@@ -1,0 +1,30 @@
+---
+- name: Install prerequisites
+  become: true
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+      - lsb-release
+      - gzip
+      - unzip
+      - curl
+      - wget
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+
+- name: Install Ubuntu LivePatch
+  become: true
+  snap:
+    name: canonical-livepatch
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+
+- name: Enable Ubuntu LivePatch service
+  become: true
+  command: "canonical-livepatch enable {{ ubuntu_livepatch_key }}"

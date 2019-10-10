@@ -1,0 +1,41 @@
+---
+- name: Create certificate authority directory
+  become: true
+  command: "make-cadir {{ ansible_env.HOME }}/openvpn-ca"
+
+- name: Configure certificate authority variables
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/openvpn-ca/vars"
+    regexp: "^{{ item.property | regex_escape() }}="
+    line: "{{ item.property }}={{ item.value }}"
+  with_items:
+    - { property: 'export KEY_NAME', value: '"hkvpn-ca"' }
+    - { property: 'export KEY_COUNTRY', value: '"JP"' }
+    - { property: 'export KEY_PROVINCE', value: '"Kanto"' }
+    - { property: 'export KEY_CITY', value: '"Tokyo"' }
+    - { property: 'export KEY_ORG', value: '"hkvpn"' }
+    - { property: 'export KEY_OU', value: '"dev"' }
+    - { property: 'export KEY_EMAIL', value: '"ca@hkvpn.dev"' }
+    - { property: 'export KEY_CONFIG', value: '{{ ansible_env.HOME }}/openvpn-ca/openssl-1.0.0.cnf' }
+    - { property: 'export KEY_DIR', value: '{{ ansible_env.HOME }}/openvpn-ca/keys' }
+
+- name: Create key server configurations
+  become: true
+  shell: gzip -d -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz | sudo tee /etc/openvpn/server.conf > /dev/null
+
+- name: Configure key server
+  lineinfile:
+    dest: /etc/openvpn/server.conf
+    regexp: "^{{ item.regex | regex_escape() }}"
+    line: "{{ item.value }}"
+  with_items:
+    - { regex: '# Sample OpenVPN 2.0 config file for            #', value: '# Custom OpenVPN 2.0 config file for            #' }
+    - { regex: 'port 1194', value: 'port 443' }
+    - { regex: ';proto tcp', value: 'proto tcp' }
+    - { regex: 'proto udp', value: ';proto udp' }
+    - { regex: ';user nobody', value: 'user nobody' }
+    - { regex: ';group nogroup', value: 'group nogroup' }
+    - { regex: ';push "redirect-gateway def1 bypass-dhcp"', value: 'push "redirect-gateway def1 bypass-dhcp"' }
+    - { regex: ';push "dhcp-option DNS 208.67.222.222"', value: 'push "dhcp-option DNS {{ dns_1 }}"' }
+    - { regex: ';push "dhcp-option DNS 208.67.220.220"', value: 'push "dhcp-option DNS {{ dns_2 }}"' }
+    - { regex: 'explicit-exit-notify 1', value: ';explicit-exit-notify 1' }

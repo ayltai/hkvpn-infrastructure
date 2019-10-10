@@ -1,0 +1,26 @@
+---
+- name: setup
+  hosts: hkvpn
+  become: true
+  tasks:
+    - name: initialize
+      include_role:
+        name: initialize
+    - name: openvpn
+      include_role:
+        name: openvpn
+    - name: letsencrypt
+      include_role:
+        name: letsencrypt
+    - name: fail2ban
+      include_role:
+        name: fail2ban
+    - name: instrumental
+      include_role:
+        name: instrumental
+    - name: cleanup
+      include_role:
+        name: cleanup
+  vars:
+    domain_name: hkvpn.dev
+    email: ayltai@gmail.com
