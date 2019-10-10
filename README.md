@@ -19,6 +19,7 @@ You will need [Terraform](https://www.terraform.io/) and [Ansible](https://www.a
 You will need the following policies attached to the OCI user account used to run the scripts:
 * `Allow group [GROUP NAME] to manage instances in tenancy`
 * `Allow group [GROUP NAME] to manage volume-family in tenancy`
+* `Allow group [GROUP NAME] to manage virtual-network-family in tenancy`
 
 ### Installing Terraform
 Follow the [official documentation](https://learn.hashicorp.com/terraform/getting-started/install.html) to install [Terraform](https://www.terraform.io/).

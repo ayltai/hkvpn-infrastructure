@@ -7,6 +7,7 @@ resource "oci_core_instance" "hkvpn" {
   create_vnic_details {
     display_name     = var.tag
     subnet_id        = oci_core_subnet.hkvpn.id
+    private_ip       = oci_core_private_ip.hkvpn.ip_address
     assign_public_ip = "true"
     hostname_label   = var.hostname
 

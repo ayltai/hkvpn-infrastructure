@@ -11,6 +11,8 @@ resource "oci_core_network_security_group" "hkvpn" {
 resource "oci_core_network_security_group_security_rule" "ssh" {
   network_security_group_id = oci_core_network_security_group.hkvpn.id
   direction                 = "INGRESS"
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
   protocol                  = "6"
 
   tcp_options {
@@ -24,6 +26,8 @@ resource "oci_core_network_security_group_security_rule" "ssh" {
 resource "oci_core_network_security_group_security_rule" "http" {
   network_security_group_id = oci_core_network_security_group.hkvpn.id
   direction                 = "INGRESS"
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
   protocol                  = "6"
 
   tcp_options {
@@ -37,6 +41,8 @@ resource "oci_core_network_security_group_security_rule" "http" {
 resource "oci_core_network_security_group_security_rule" "https" {
   network_security_group_id = oci_core_network_security_group.hkvpn.id
   direction                 = "INGRESS"
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
   protocol                  = "6"
 
   tcp_options {
