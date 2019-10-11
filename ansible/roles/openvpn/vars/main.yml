@@ -1,4 +1,5 @@
 ---
+port: 1194
 client_name: client
 dns_1: 1.1.1.1
 dns_2: 8.8.8.8

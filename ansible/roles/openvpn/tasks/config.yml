@@ -30,9 +30,9 @@
     line: "{{ item.value }}"
   with_items:
     - { regex: '# Sample OpenVPN 2.0 config file for            #', value: '# Custom OpenVPN 2.0 config file for            #' }
-    - { regex: 'port 1194', value: 'port 443' }
-    - { regex: ';proto tcp', value: 'proto tcp' }
-    - { regex: 'proto udp', value: ';proto udp' }
+    - { regex: 'port 1194', value: 'port {{ port }}' }
+    #- { regex: ';proto tcp', value: 'proto tcp' }
+    #- { regex: 'proto udp', value: ';proto udp' }
     - { regex: ';user nobody', value: 'user nobody' }
     - { regex: ';group nogroup', value: 'group nogroup' }
     - { regex: ';push "redirect-gateway def1 bypass-dhcp"', value: 'push "redirect-gateway def1 bypass-dhcp"' }

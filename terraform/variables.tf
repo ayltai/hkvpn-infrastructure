@@ -58,9 +58,9 @@ variable "https_port" {
   default     = 443
 }
 
-variable "hostname" {
-  description = "The hostname of the VM instance to deploy"
-  default     = "hkvpn.dev"
+variable "openvpn_port" {
+  description = "The port for handling OpenVPN traffic"
+  default     = 1194
 }
 
 variable "username" {

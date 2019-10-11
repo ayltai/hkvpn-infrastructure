@@ -9,9 +9,6 @@
     - name: openvpn
       include_role:
         name: openvpn
-    - name: letsencrypt
-      include_role:
-        name: letsencrypt
     - name: fail2ban
       include_role:
         name: fail2ban
@@ -21,6 +18,3 @@
     - name: cleanup
       include_role:
         name: cleanup
-  vars:
-    domain_name: hkvpn.dev
-    email: ayltai@gmail.com

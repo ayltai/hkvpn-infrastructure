@@ -8,7 +8,6 @@ resource "oci_core_instance" "hkvpn" {
     display_name     = var.tag
     subnet_id        = oci_core_subnet.hkvpn.id
     assign_public_ip = "false"
-    hostname_label   = var.hostname
 
     freeform_tags = {
       Name = var.tag

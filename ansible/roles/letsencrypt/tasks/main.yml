@@ -1,5 +1,0 @@
----
-- include_tasks: install.yml
-- include_tasks: config.yml
-- include_tasks: cron.yml
-- include_tasks: generate.yml
