@@ -20,17 +20,47 @@ resource "oci_core_network_security_group_security_rule" "ssh" {
       max = var.ssh_port
       min = var.ssh_port
     }
+  }
+}
 
+resource "oci_core_network_security_group_security_rule" "http" {
+  network_security_group_id = oci_core_network_security_group.hkvpn.id
+  direction                 = "INGRESS"
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
+  protocol                  = "6"
+
+  tcp_options {
     destination_port_range {
       max = var.http_port
       min = var.http_port
     }
+  }
+}
 
+resource "oci_core_network_security_group_security_rule" "https" {
+  network_security_group_id = oci_core_network_security_group.hkvpn.id
+  direction                 = "INGRESS"
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
+  protocol                  = "6"
+
+  tcp_options {
     destination_port_range {
       max = var.https_port
       min = var.https_port
     }
+  }
+}
 
+resource "oci_core_network_security_group_security_rule" "openvpn" {
+  network_security_group_id = oci_core_network_security_group.hkvpn.id
+  direction                 = "INGRESS"
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
+  protocol                  = "6"
+
+  tcp_options {
     destination_port_range {
       max = var.openvpn_port
       min = var.openvpn_port
