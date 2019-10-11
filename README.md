@@ -46,11 +46,6 @@ You will need a key pair for connecting the newly provisioned instance using SSH
 ### Ansible Vault password
 The SSH certificate password is encrypted by [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html). You will need to specify a Vault password file in order to decrypt the password during the Ansible automation process. The file path is defined in [Let's Encrypt role](https://github.com/ayltai/hkvpn-infrastructure/tree/master/ansible/letsencrypt/vars/main.yml).
 
-### DNS
-You have to configure your DNS to resolve the domain name of the newly provisioned instance.
-
-The public IPv4 address of the Compute instance created will be printed out in your console during the Terraform automation process. You are expected to configure your DNS to resolve the domain name to this IP address. [Let's Encrypt role](https://github.com/ayltai/hkvpn-infrastructure/tree/master/ansible/letsencrypt) will wait for at most 30 minutes for this.
-
 ## Post installation
 The OpenVPN client configuration file will be automatically downloaded to your home directory (`~/client.ovpn`).
 
