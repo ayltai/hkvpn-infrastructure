@@ -1,4 +1,4 @@
-# HK News Infrastructure
+# HK VPN
 
 [![CircleCI](https://img.shields.io/circleci/project/github/ayltai/hkvpn-infrastructure/master.svg?style=flat)](https://circleci.com/gh/ayltai/hkvpn-infrastructure)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/ayltai/hkvpn-infrastructure)](https://cloud.docker.com/u/ayltai/repository/docker/ayltai/hkvpn-infrastructure)
@@ -6,63 +6,26 @@
 [![Release](https://img.shields.io/github/release/ayltai/hkvpn-infrastructure.svg?style=flat)](https://github.com/ayltai/hkvpn-infrastructure/releases)
 [![License](https://img.shields.io/github/license/ayltai/hkvpn-infrastructure.svg?style=flat)](https://github.com/ayltai/hkvpn-infrastructure/blob/master/LICENSE)
 
-Automates HK VPN server provisioning and configurations. Made with ❤
+Automates HK VPN server provisioning and configuration. Made with ❤
 
 ## Features
-* Use [Terraform](https://www.terraform.io/) to provision [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/) [Compute](https://www.oracle.com/cloud/compute/) instances
+* Use [Terraform](https://www.terraform.io/) to provision a server using [DigitalOcean Droplets](https://m.do.co/c/f873e16476e5), [Amazon EC2](https://aws.amazon.com/ec2/), [Amazon Lightsail](https://aws.amazon.com/lightsail/), [Microsoft Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/) or [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/) [Compute](https://www.oracle.com/cloud/compute/) instances.
 * Use [Ansible](https://www.ansible.com/) to setup OpenVPN server, certificate authority and system monitoring tools
 
-## Prerequisites
-You will need [Terraform](https://www.terraform.io/) and [Ansible](https://www.ansible.com/) to run the scripts in this repository.
+## Deployment
+You can deploy HK VPN to any of the following cloud platforms but I recommend choosing between either [DigitalOcean](https://m.do.co/c/f873e16476e5) or [Amazon Lightsail](https://aws.amazon.com/lightsail/).
 
-### OCI IAM permissions
-You will need the following policies attached to the OCI user account used to run the scripts:
-* `Allow group [GROUP NAME] to manage instances in tenancy`
-* `Allow group [GROUP NAME] to manage volume-family in tenancy`
-* `Allow group [GROUP NAME] to manage virtual-network-family in tenancy`
+* [DigitalOcean](https://m.do.co/c/f873e16476e5) (Recommended)
+* [Amazon EC2](https://aws.amazon.com/ec2/)
+* [Amazon Lightsail](https://aws.amazon.com/lightsail/)
+* [Microsoft Azure](https://azure.microsoft.com/en-us/services/virtual-machines/)
+* [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/)
 
-### Installing Terraform
-Follow the [official documentation](https://learn.hashicorp.com/terraform/getting-started/install.html) to install [Terraform](https://www.terraform.io/).
+[DigitalOcean](https://m.do.co/c/f873e16476e5) is recommended because for US$ 5/month it gives you 1TB bandwidth, which is pretty good for a typical VPN user. While [Amazon Lightsail](https://aws.amazon.com/lightsail/)'s US$ 5/month plan gives you 2TB bandwidth with similar hardware specifications, they don't offer promotional credits like [DigitalOcean](https://m.do.co/c/f873e16476e5) does. For instance, if you register a [DigitalOcean](https://m.do.co/c/f873e16476e5) account using this [promotional link](https://m.do.co/c/f873e16476e5), you will get US$ 25 for free. That means you can have your HK VPN server running for free for the first 5 months. In other words, [Amazon Lightsail](https://aws.amazon.com/lightsail/) would cost you US$ 60/year while for [DigitalOcean](https://m.do.co/c/f873e16476e5), it would cost you only US$ 35 for the first year.
 
-### Installing Ansible
-Follow the [official documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) to install [Ansible](https://www.ansible.com/).
-
-### API key pair
-You will need a key pair for creating the target instance using [OCI API](https://docs.cloud.oracle.com/iaas/api/). Currently [Terraform](https://www.terraform.io/) does not support creating key pairs for using [OCI API](https://docs.cloud.oracle.com/iaas/api/) so you have to supply your own
-
-1. Follow [OCI documentation](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm) to create your key pair
-2. Save your private key to `~/.ssh/hkvpn.pem` (or as specified in [credentials.tf](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform/variables.tf))
-3. Upload your public key to OCI: Identity > Users > User Details > API Keys
-4. Change the variables defined in [variables.tf](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform/variables.tf) and [playbook.yml](https://github.com/ayltai/hkvpn-infrastructure/tree/master/ansible/playbook.yml) to fit your needs
-
-### SSH key pair
-You will need a key pair for connecting the newly provisioned instance using SSH. Currently [Terraform](https://www.terraform.io/) does not support uploading key pairs to OCI so you have to supply your own
-
-1. Follow [OCI documentation](https://docs.cloud.oracle.com/iaas/Content/GSG/Tasks/creatingkeys.htm) to create your key pair
-2. Save your private key to `~/.ssh/hkvpn.key` (or as specified in [variables.tf](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform/variables.tf))
-3. Export your public key as an environment variable: `export TF_VAR_ssh_public_key="ssh-rsa AAA...yX25 hkvpn"`
-4. Change the variables defined in [variables.tf](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform/variables.tf) and [playbook.yml](https://github.com/ayltai/hkvpn-infrastructure/tree/master/ansible/playbook.yml) to fit your needs
-
-### Ansible Vault password
-The SSH certificate password is encrypted by [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html). You will need to specify a Vault password file in order to decrypt the password during the Ansible automation process. The file path is defined in [Let's Encrypt role](https://github.com/ayltai/hkvpn-infrastructure/tree/master/ansible/letsencrypt/vars/main.yml).
-
-## Post installation
-The OpenVPN client configuration file will be automatically downloaded to your home directory (`~/client.ovpn`).
-
-## Provisioning
-1. Go to [terraform](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform) directory
-  ```sh
-  cd terraform
-  ```
-2. Initialize Terraform backend and plugins
-  ```sh
-  terraform init
-  ```
-3. Plan for the changes
-  ```sh
-  terraform plan -out main
-  ```
-4. If the potential changes look fine, apply them
-  ```sh
-  terraform apply main
-  ```
+To deploy HK VPN, follow the documentation of the respective cloud platform:
+* [DigitalOcean](DigitalOcean.md)
+* [Amazon EC2](EC2.md)
+* [Amazon Lightsail](LightSail.md)
+* [Microsoft Azure](Azure.md)
+* [Oracle Cloud Infrastructure](Oracle.md)

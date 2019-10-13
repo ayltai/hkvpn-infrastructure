@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 references:
 
@@ -26,7 +26,7 @@ jobs:
           command: ansible-lint ./playbook.yml
           working_directory: ansible
 
-  deploy:
+  deploy_digitalocean:
     <<: *config
     steps:
       - checkout
@@ -54,19 +54,157 @@ jobs:
       - run:
           name: Initialize Terraform backend and plugins
           command: echo 1 | terraform init
-          working_directory: terraform
+          working_directory: terraform-digitalocean
       - run:
           name: Validate the syntax of Terraform scripts
           command: terraform validate
-          working_directory: terraform
+          working_directory: terraform-digitalocean
       - run:
           name: Plan for the changes
           command: terraform plan -out main
-          working_directory: terraform
+          working_directory: terraform-digitalocean
       - run:
           name: Apply the changes
           command: terraform apply main
-          working_directory: terraform
+          working_directory: terraform-digitalocean
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: ~/client.ovpn
+          destination: client.ovpn
+
+  deploy_ec2:
+    <<: *config
+    steps:
+      - checkout
+      - run:
+          name: Configure credentials for accessing Terraform Cloud backend
+          command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
+      - run:
+          name: Create .ssh directory to store keys
+          command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
+      - run:
+          name: Configure API private key for provisioning the system
+          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
+      - run:
+          name: Configure SSH private key for accessing the system to be provisioned
+          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
+      - run:
+          name: Change API private key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
+      - run:
+          name: Change SSH private key permission
+          command: chmod 400 ~/.ssh/hkvpn.key
+      - run:
+          name: Create Ansible Vault password file
+          command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass
+      - run:
+          name: Initialize Terraform backend and plugins
+          command: echo 1 | terraform init
+          working_directory: terraform-ec2
+      - run:
+          name: Validate the syntax of Terraform scripts
+          command: terraform validate
+          working_directory: terraform-ec2
+      - run:
+          name: Plan for the changes
+          command: terraform plan -out main
+          working_directory: terraform-ec2
+      - run:
+          name: Apply the changes
+          command: terraform apply main
+          working_directory: terraform-ec2
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: ~/client.ovpn
+          destination: client.ovpn
+
+  deploy_lightsail:
+    <<: *config
+    steps:
+      - checkout
+      - run:
+          name: Configure credentials for accessing Terraform Cloud backend
+          command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
+      - run:
+          name: Create .ssh directory to store keys
+          command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
+      - run:
+          name: Configure API private key for provisioning the system
+          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
+      - run:
+          name: Configure SSH private key for accessing the system to be provisioned
+          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
+      - run:
+          name: Change API private key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
+      - run:
+          name: Change SSH private key permission
+          command: chmod 400 ~/.ssh/hkvpn.key
+      - run:
+          name: Create Ansible Vault password file
+          command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass
+      - run:
+          name: Initialize Terraform backend and plugins
+          command: echo 1 | terraform init
+          working_directory: terraform-lightsail
+      - run:
+          name: Validate the syntax of Terraform scripts
+          command: terraform validate
+          working_directory: terraform-lightsail
+      - run:
+          name: Plan for the changes
+          command: terraform plan -out main
+          working_directory: terraform-lightsail
+      - run:
+          name: Apply the changes
+          command: terraform apply main
+          working_directory: terraform-lightsail
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: ~/client.ovpn
+          destination: client.ovpn
+
+  deploy_oracle:
+    <<: *config
+    steps:
+      - checkout
+      - run:
+          name: Configure credentials for accessing Terraform Cloud backend
+          command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
+      - run:
+          name: Create .ssh directory to store keys
+          command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
+      - run:
+          name: Configure API private key for provisioning the system
+          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
+      - run:
+          name: Configure SSH private key for accessing the system to be provisioned
+          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
+      - run:
+          name: Change API private key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
+      - run:
+          name: Change SSH private key permission
+          command: chmod 400 ~/.ssh/hkvpn.key
+      - run:
+          name: Create Ansible Vault password file
+          command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass
+      - run:
+          name: Initialize Terraform backend and plugins
+          command: echo 1 | terraform init
+          working_directory: terraform-oracle
+      - run:
+          name: Validate the syntax of Terraform scripts
+          command: terraform validate
+          working_directory: terraform-oracle
+      - run:
+          name: Plan for the changes
+          command: terraform plan -out main
+          working_directory: terraform-oracle
+      - run:
+          name: Apply the changes
+          command: terraform apply main
+          working_directory: terraform-oracle
           no_output_timeout: 60m
       - store_artifacts:
           path: ~/client.ovpn
@@ -77,14 +215,50 @@ workflows:
   workflow:
     jobs:
       - check
-      - approval:
+      - approve_digitalocean:
           type: approval
           requires:
             - check
-      - deploy:
+      - approve_ec2:
+          type: approval
           requires:
             - check
-            - approval
+      - approve_lightsail:
+          type: approval
+          requires:
+            - check
+      - approve_oracle:
+          type: approval
+          requires:
+            - check
+      - deploy_digitalocean:
+          requires:
+            - check
+            - approve_digitalocean
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_ec2:
+          requires:
+            - check
+            - approve_ec2
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_lightsail:
+          requires:
+            - check
+            - approve_lightsail
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_oracle:
+          requires:
+            - check
+            - approve_oracle
           filters:
             branches:
               only:
