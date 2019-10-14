@@ -43,3 +43,34 @@ resource "azurerm_virtual_machine" "hkvpn" {
     Name = var.tag
   }
 }
+
+resource "null_resource" "exec" {
+  depends_on = [
+    azurerm_virtual_machine.hkvpn,
+  ]
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt -qq install python -y",
+    ]
+
+    connection {
+      agent       = false
+      timeout     = var.timeout
+      host        = azurerm_public_ip.hkvpn.ip_address
+      private_key = file(var.private_key)
+      user        = var.username
+    }
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      sleep 50;
+      >inventory.ini;
+      echo "[hkvpn]" | tee -a inventory.ini;
+      echo "${azurerm_public_ip.hkvpn.ip_address} ansible_user=${var.username} ansible_ssh_private_key_file=${var.private_key}" | tee -a inventory.ini;
+      export ANSIBLE_HOST_KEY_CHECKING=False;
+      ansible-playbook -u ${var.username} --private-key ${var.private_key} --vault-password-file ${var.vault_password_file} -i inventory.ini ../ansible/playbook.yml
+    EOT
+  }
+}

@@ -1,8 +1,3 @@
-variable "public_key" {
-  description = "The path of the SSH public key used to authenticate with the Droplet deployed"
-  default     = "/home/ubuntu/.ssh/hkvpn.pub"
-}
-
 variable "region" {
   description = "The region of the Droplet to deploy to"
   default     = "sfo2"
@@ -23,6 +18,21 @@ variable "monitoring" {
   default     = true
 }
 
+variable "public_key" {
+  description = "The path of the SSH public key used to authenticate with the Droplet deployed"
+  default     = "/home/ubuntu/.ssh/hkvpn.pub"
+}
+
+variable "private_key" {
+  description = "Lightsail instance private key"
+  default     = "~/.ssh/hkvpn.key"
+}
+
+variable "vault_password_file" {
+  description = "Ansible Vault password file"
+  default     = "~/vault.pass"
+}
+
 variable "ssh_port" {
   description = "The port for handling SSH requests"
   default     = 22
@@ -41,6 +51,16 @@ variable "https_port" {
 variable "openvpn_port" {
   description = "The port for handling OpenVPN traffic"
   default     = 1194
+}
+
+variable "username" {
+  description = "OS user"
+  default     = "ubuntu"
+}
+
+variable "timeout" {
+  description = "The maximum amount of time allowed to deploy EC2 instance"
+  default     = "60m"
 }
 
 variable "tag" {

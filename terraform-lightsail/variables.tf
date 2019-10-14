@@ -25,7 +25,7 @@ variable "public_key" {
 
 variable "private_key" {
   description = "Lightsail instance private key"
-  default     = "~/.ssh/hkvpn.pem"
+  default     = "~/.ssh/hkvpn.key"
 }
 
 variable "vault_password_file" {
@@ -34,7 +34,7 @@ variable "vault_password_file" {
 }
 
 variable "username" {
-  description = "AMI user"
+  description = "OS user"
   default     = "ubuntu"
 }
 

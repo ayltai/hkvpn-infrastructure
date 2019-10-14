@@ -50,7 +50,7 @@ variable "public_key" {
 
 variable "private_key" {
   description = "EC2 instance private key"
-  default     = "~/.ssh/hkvpn.pem"
+  default     = "~/.ssh/hkvpn.key"
 }
 
 variable "vault_password_file" {
