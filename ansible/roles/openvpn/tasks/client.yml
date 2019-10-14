@@ -30,7 +30,7 @@
   with_items:
     #- { regex: ';proto tcp', value: 'proto tcp' }
     #- { regex: 'proto udp', value: ';proto udp' }
-    - { regex: 'remote my-server-1 1194', value: 'remote {{ ansible_enp0s3.ipv4.address }} {{ port }}' }
+    - { regex: 'remote my-server-1 1194', value: 'remote {{ ansible_eth0.ipv4.address }} {{ port }}' }
     - { regex: ';user nobody', value: 'user nobody' }
     - { regex: ';group nogroup', value: 'group nogroup' }
     - { regex: 'ca ca.crt', value: ';ca ca.crt' }

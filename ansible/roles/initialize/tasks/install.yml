@@ -3,6 +3,10 @@
   become: true
   apt:
     name: "{{ packages }}"
+    update_cache: yes
+    upgrade: dist
+    autoclean: yes
+    autoremove: yes
   vars:
     packages:
       - software-properties-common
