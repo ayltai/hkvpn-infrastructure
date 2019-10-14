@@ -9,8 +9,13 @@
 Automates HK VPN server provisioning and configuration. Made with ❤
 
 ## Features
+* Be ready to use your personal VPN server in under 2 minutes (if you use our [DigitalOcean](https://m.do.co/c/f873e16476e5) deployment)
+* Use [OpenVPN](https://openvpn.net/) and [Cloudflare](https://www.cloudflare.com/) DNS to protect your privacy
 * Use [Terraform](https://www.terraform.io/) to provision a server using [DigitalOcean Droplets](https://m.do.co/c/f873e16476e5), [Amazon EC2](https://aws.amazon.com/ec2/), [Amazon Lightsail](https://aws.amazon.com/lightsail/), [Microsoft Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/) or [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/) [Compute](https://www.oracle.com/cloud/compute/) instances.
 * Use [Ansible](https://www.ansible.com/) to setup OpenVPN server, certificate authority and system monitoring tools
+
+## Pre-deployment
+You need to `git clone` this repository and decide which cloud platform you want to run your VPN server, then follow the respective deployment instructions.
 
 ## Deployment
 You can deploy HK VPN to any of the following cloud platforms but I recommend choosing between either [DigitalOcean](https://m.do.co/c/f873e16476e5) or [Amazon Lightsail](https://aws.amazon.com/lightsail/).
@@ -30,7 +35,7 @@ To deploy HK VPN, follow the documentation of the respective cloud platform:
 * [Microsoft Azure](Azure.md)
 * [Oracle Cloud Infrastructure](Oracle.md)
 
-## Post deployment
+## Post-deployment
 The OpenVPN client configuration file will be automatically downloaded to your home directory (`~/hkvpn.ovpn`).
 
 ### macOS

@@ -44,7 +44,7 @@ resource "null_resource" "exec" {
       echo "[hkvpn]" | tee -a inventory.ini;
       echo "${aws_instance.hkvpn.public_ip} ansible_user=${var.username} ansible_ssh_private_key_file=${var.private_key}" | tee -a inventory.ini;
       export ANSIBLE_HOST_KEY_CHECKING=False;
-      ansible-playbook -u ${var.username} --private-key ${var.private_key} --vault-password-file ${var.vault_password_file} -i inventory.ini ../ansible/playbook.yml
+      ansible-playbook -u ${var.username} --private-key ${var.private_key} --vault-password-file ${var.vault_password_file} --extra-vars "ip_address=${aws_instance.hkvpn.public_ip}" -i inventory.ini ../ansible/playbook.yml
     EOT
   }
 }
