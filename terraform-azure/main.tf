@@ -22,7 +22,3 @@ resource "azurerm_resource_group" "hkvpn" {
     Name = var.tag
   }
 }
-
-output "public_ip" {
-  value = azurerm_public_ip.hkvpn.ip_address
-}

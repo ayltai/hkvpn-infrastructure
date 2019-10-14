@@ -28,3 +28,7 @@
 - name: Enable Ubuntu LivePatch service
   become: true
   command: "canonical-livepatch enable {{ ubuntu_livepatch_key }}"
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+    - ubuntu_livepath_enabled

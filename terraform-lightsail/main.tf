@@ -12,7 +12,3 @@ provider "aws" {
 provider "null" {
   version = "~> 2.1"
 }
-
-output "public_ip" {
-  value = aws_lightsail_static_ip.hkvpn.ip_address
-}

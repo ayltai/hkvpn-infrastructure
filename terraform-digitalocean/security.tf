@@ -1,6 +1,6 @@
 resource "digitalocean_ssh_key" "hkvpn" {
   name       = var.tag
-  public_key = file(var.ssh_public_key)
+  public_key = file(var.public_key)
 }
 
 resource "digitalocean_firewall" "hkvpn" {

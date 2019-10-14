@@ -12,7 +12,3 @@ provider "aws" {
 provider "null" {
   version = "~> 2.1"
 }
-
-output "public_ip" {
-  value = aws_eip.hkvpn.public_ip
-}
