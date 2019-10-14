@@ -26,7 +26,7 @@ resource "azurerm_network_security_rule" "http" {
   name                        = "HTTP"
   resource_group_name         = azurerm_resource_group.hkvpn.name
   network_security_group_name = azurerm_network_security_group.hkvpn.name
-  priority                    = 100
+  priority                    = 200
   protocol                    = "Tcp"
   direction                   = "Inbound"
   access                      = "Allow"
@@ -40,7 +40,7 @@ resource "azurerm_network_security_rule" "HTTPS" {
   name                        = "HTTPS"
   resource_group_name         = azurerm_resource_group.hkvpn.name
   network_security_group_name = azurerm_network_security_group.hkvpn.name
-  priority                    = 100
+  priority                    = 300
   protocol                    = "Tcp"
   direction                   = "Inbound"
   access                      = "Allow"
@@ -54,7 +54,7 @@ resource "azurerm_network_security_rule" "openvpn" {
   name                        = "OpenVPN"
   resource_group_name         = azurerm_resource_group.hkvpn.name
   network_security_group_name = azurerm_network_security_group.hkvpn.name
-  priority                    = 100
+  priority                    = 400
   protocol                    = "Udp"
   direction                   = "Inbound"
   access                      = "Allow"
