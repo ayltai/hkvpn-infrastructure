@@ -37,14 +37,14 @@ jobs:
           name: Create .ssh directory to store keys
           command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
       - run:
-          name: Configure API private key for provisioning the system
-          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
-      - run:
           name: Configure SSH private key for accessing the system to be provisioned
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
       - run:
-          name: Change API private key permission
-          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
+          name: Configure SSH public key for accessing the system to be provisioned
+          command: echo $SSH_PUBLIC_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pub
+      - run:
+          name: Change SSH public key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pub
       - run:
           name: Change SSH private key permission
           command: chmod 400 ~/.ssh/hkvpn.key
@@ -83,14 +83,14 @@ jobs:
           name: Create .ssh directory to store keys
           command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
       - run:
-          name: Configure API private key for provisioning the system
-          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
-      - run:
           name: Configure SSH private key for accessing the system to be provisioned
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
       - run:
-          name: Change API private key permission
-          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
+          name: Configure SSH public key for accessing the system to be provisioned
+          command: echo $SSH_PUBLIC_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pub
+      - run:
+          name: Change SSH public key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pub
       - run:
           name: Change SSH private key permission
           command: chmod 400 ~/.ssh/hkvpn.key
@@ -129,14 +129,14 @@ jobs:
           name: Create .ssh directory to store keys
           command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
       - run:
-          name: Configure API private key for provisioning the system
-          command: echo $API_PRIVATE_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pem
-      - run:
           name: Configure SSH private key for accessing the system to be provisioned
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
       - run:
-          name: Change API private key permission
-          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
+          name: Configure SSH public key for accessing the system to be provisioned
+          command: echo $SSH_PUBLIC_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pub
+      - run:
+          name: Change SSH public key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pub
       - run:
           name: Change SSH private key permission
           command: chmod 400 ~/.ssh/hkvpn.key
@@ -164,6 +164,52 @@ jobs:
           path: ~/client.ovpn
           destination: client.ovpn
 
+  deploy_azure:
+    <<: *config
+    steps:
+      - checkout
+      - run:
+          name: Configure credentials for accessing Terraform Cloud backend
+          command: echo $TERRAFORM_TOKEN | base64 -di > ~/.terraformrc
+      - run:
+          name: Create .ssh directory to store keys
+          command: mkdir -p /home/ubuntu/.ssh && mkdir ~/.ssh
+      - run:
+          name: Configure SSH private key for accessing the system to be provisioned
+          command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
+      - run:
+          name: Configure SSH public key for accessing the system to be provisioned
+          command: echo $SSH_PUBLIC_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pub
+      - run:
+          name: Change SSH public key permission
+          command: chmod 400 /home/ubuntu/.ssh/hkvpn.pub
+      - run:
+          name: Change SSH private key permission
+          command: chmod 400 ~/.ssh/hkvpn.key
+      - run:
+          name: Create Ansible Vault password file
+          command: echo $VAULT_PASSWORD_FILE | base64 -di > ~/vault.pass
+      - run:
+          name: Initialize Terraform backend and plugins
+          command: echo 1 | terraform init
+          working_directory: terraform-azure
+      - run:
+          name: Validate the syntax of Terraform scripts
+          command: terraform validate
+          working_directory: terraform-azure
+      - run:
+          name: Plan for the changes
+          command: terraform plan -out main
+          working_directory: terraform-azure
+      - run:
+          name: Apply the changes
+          command: terraform apply main
+          working_directory: terraform-azure
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: ~/client.ovpn
+          destination: client.ovpn
+
   deploy_oracle:
     <<: *config
     steps:
@@ -180,9 +226,6 @@ jobs:
       - run:
           name: Configure SSH private key for accessing the system to be provisioned
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
-      - run:
-          name: Configure SSH public key for accessing the system to be provisioned
-          command: echo $SSH_PUBLIC_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pub
       - run:
           name: Change API private key permission
           command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
@@ -230,6 +273,10 @@ workflows:
           type: approval
           requires:
             - check
+      - approve_azure:
+          type: approval
+          requires:
+            - check
       - approve_oracle:
           type: approval
           requires:
@@ -254,6 +301,14 @@ workflows:
           requires:
             - check
             - approve_lightsail
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_azure:
+          requires:
+            - check
+            - approve_azure
           filters:
             branches:
               only:
