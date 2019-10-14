@@ -1,12 +1,24 @@
 ---
+- name: Update apt cache
+  become: true
+  apt:
+    update_cache: yes
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+
+- name: Update system
+  become: true
+  apt:
+    upgrade: dist
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+
 - name: Install prerequisites
   become: true
   apt:
     name: "{{ packages }}"
-    update_cache: yes
-    upgrade: dist
-    autoclean: yes
-    autoremove: yes
   vars:
     packages:
       - software-properties-common
