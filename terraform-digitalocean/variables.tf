@@ -1,6 +1,6 @@
 variable "public_key" {
   description = "The path of the SSH public key used to authenticate with the Droplet deployed"
-  default     = "~/.ssh/hkvpn.pub"
+  default     = "/home/ubuntu/.ssh/hkvpn.pub"
 }
 
 variable "region" {

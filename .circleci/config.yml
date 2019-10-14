@@ -182,7 +182,7 @@ jobs:
           command: echo $SSH_PRIVATE_KEY | base64 -di > ~/.ssh/hkvpn.key
       - run:
           name: Configure SSH public key for accessing the system to be provisioned
-          command: echo $SSH_PUBLIC_KEY | base64 -di > ~/.ssh/hkvpn.pub
+          command: echo $SSH_PUBLIC_KEY | base64 -di > /home/ubuntu/.ssh/hkvpn.pub
       - run:
           name: Change API private key permission
           command: chmod 400 /home/ubuntu/.ssh/hkvpn.pem
