@@ -55,7 +55,7 @@ variable "openvpn_port" {
 
 variable "username" {
   description = "OS user"
-  default     = "ubuntu"
+  default     = "root"
 }
 
 variable "timeout" {
