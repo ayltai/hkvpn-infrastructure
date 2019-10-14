@@ -30,7 +30,7 @@ variable "disk_type" {
 
 variable "disk_size" {
   description = "The size of the data disk of the Azure VM in gigabytes"
-  default     = 10
+  default     = 32
 }
 
 variable "vnet_cidr_block" {
