@@ -10,9 +10,9 @@
     line: "{{ item.property }}={{ item.value }}"
   with_items:
     - { property: 'export KEY_NAME', value: '"hkvpn-ca"' }
-    - { property: 'export KEY_COUNTRY', value: '"JP"' }
-    - { property: 'export KEY_PROVINCE', value: '"Kanto"' }
-    - { property: 'export KEY_CITY', value: '"Tokyo"' }
+    - { property: 'export KEY_COUNTRY', value: '"US"' }
+    - { property: 'export KEY_PROVINCE', value: '"Oregon"' }
+    - { property: 'export KEY_CITY', value: '"Boardman"' }
     - { property: 'export KEY_ORG', value: '"hkvpn"' }
     - { property: 'export KEY_OU', value: '"dev"' }
     - { property: 'export KEY_EMAIL', value: '"ca@hkvpn.dev"' }

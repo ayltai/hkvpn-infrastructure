@@ -29,3 +29,17 @@ To deploy HK VPN, follow the documentation of the respective cloud platform:
 * [Amazon Lightsail](LightSail.md)
 * [Microsoft Azure](Azure.md)
 * [Oracle Cloud Infrastructure](Oracle.md)
+
+## Post deployment
+The OpenVPN client configuration file will be automatically downloaded to your home directory (`~/hkvpn.ovpn`).
+
+### macOS
+For macOS, follow the [instruction](https://openvpn.net/vpn-server-resources/installation-guide-for-openvpn-connect-client-on-macos/) to install a VPN client or use [Tunnelblick](https://tunnelblick.net/) and import the client configuration file (`hkvpn.ovpn`). 
+
+### Windows
+For Windows, follow the [instruction](https://openvpn.net/vpn-server-resources/installation-guide-for-openvpn-connect-client-on-windows/) to install a VPN client and import the client configuration file (`hkvpn.ovpn`).
+
+## Secure connection verification
+
+1. Check if your real IP is hidden: [IP address test](https://whatismyip.com)
+2. Check if your DNS leaks: [DNS leak check](https://www.dnsleaktest.com)

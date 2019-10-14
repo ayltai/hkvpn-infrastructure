@@ -54,9 +54,6 @@ The SSH certificate password is encrypted by [Ansible Vault](https://docs.ansibl
   terraform apply main
   ```
 
-## Post installation
-The OpenVPN client configuration file will be automatically downloaded to your home directory (`~/client.ovpn`).
-
 ## Troubleshooting
 
 ### Out of host capacity
