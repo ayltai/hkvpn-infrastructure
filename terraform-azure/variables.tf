@@ -15,7 +15,7 @@ variable "image_offer" {
 
 variable "image_sku" {
   description = "The SKU of the OS image used to create Azure VM"
-  default     = "18.04.0-LTS"
+  default     = "18.04-LTS"
 }
 
 variable "vm_size" {
