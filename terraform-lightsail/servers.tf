@@ -19,7 +19,7 @@ resource "null_resource" "exec" {
     connection {
       agent       = false
       timeout     = var.timeout
-      host        = aws_lightsail_static_ip.hkvpn.ip_address
+      host        = aws_lightsail_static_ip.public.ip_address
       private_key = file(var.private_key)
       user        = var.username
     }
@@ -30,7 +30,7 @@ resource "null_resource" "exec" {
       sleep 50;
       >inventory.ini;
       echo "[hkvpn]" | tee -a inventory.ini;
-      echo "${aws_lightsail_static_ip.hkvpn.ip_address} ansible_user=${var.username} ansible_ssh_private_key_file=${var.private_key}" | tee -a inventory.ini;
+      echo "${aws_lightsail_static_ip.public.ip_address} ansible_user=${var.username} ansible_ssh_private_key_file=${var.private_key}" | tee -a inventory.ini;
       export ANSIBLE_HOST_KEY_CHECKING=False;
       ansible-playbook -u ${var.username} --private-key ${var.private_key} --vault-password-file ${var.vault_password_file} -i inventory.ini ../ansible/playbook.yml
     EOT

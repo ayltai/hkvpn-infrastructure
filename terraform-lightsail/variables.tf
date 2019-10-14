@@ -10,7 +10,7 @@ variable "zone" {
 
 variable "bundle_id" {
   description = "The size of the Lightsail instance to deploy"
-  default     = "micro_2_0"
+  default     = "nano_2_0"
 }
 
 variable "blueprint_id" {
