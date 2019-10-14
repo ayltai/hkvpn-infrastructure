@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine" "hkvpn" {
   }
 
   storage_image_reference {
-    publisher = var.public_key
+    publisher = var.image_publisher
     offer     = var.image_offer
     sku       = var.image_sku
     version   = "latest"
