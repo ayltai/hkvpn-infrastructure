@@ -20,12 +20,12 @@ variable "image_sku" {
 
 variable "vm_size" {
   description = "The size of the VM to be deployed"
-  default     = "Standard_B1s"
+  default     = "Standard_B1ls"
 }
 
 variable "disk_type" {
   description = "The type of the disk of the Azure VM"
-  default     = "StandardSSD_LRS"
+  default     = "Standard_LRS"
 }
 
 variable "disk_size" {

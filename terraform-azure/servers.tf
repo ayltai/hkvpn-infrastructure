@@ -1,10 +1,9 @@
 resource "azurerm_virtual_machine" "hkvpn" {
-  name                             = var.tag
-  location                         = var.location
-  resource_group_name              = azurerm_resource_group.hkvpn.name
-  vm_size                          = var.vm_size
-  delete_os_disk_on_termination    = true
-  delete_data_disks_on_termination = true
+  name                          = var.tag
+  location                      = var.location
+  resource_group_name           = azurerm_resource_group.hkvpn.name
+  vm_size                       = var.vm_size
+  delete_os_disk_on_termination = true
 
   network_interface_ids = [
     azurerm_network_interface.hkvpn.id
@@ -45,13 +44,14 @@ resource "azurerm_virtual_machine" "hkvpn" {
 }
 
 resource "null_resource" "exec" {
-  depends_on = [
-    azurerm_virtual_machine.hkvpn,
-  ]
+  triggers = {
+    azurerm_virtual_machine_id = azurerm_virtual_machine.hkvpn.id,
+  }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo apt update; sudo apt -qq install python -y",
+      "sudo apt update",
+      "sudo apt -qq install python -y",
     ]
 
     connection {
