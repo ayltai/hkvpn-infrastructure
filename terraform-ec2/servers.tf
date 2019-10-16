@@ -19,9 +19,9 @@ resource "aws_instance" "hkvpn" {
 }
 
 resource "null_resource" "exec" {
-  depends_on = [
-    aws_eip.hkvpn,
-  ]
+  triggers = {
+    aws_eip.hkvpn.id,
+  }
 
   provisioner "remote-exec" {
     inline = [
