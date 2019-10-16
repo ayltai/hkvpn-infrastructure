@@ -42,18 +42,18 @@ The SSH certificate password is encrypted by [Ansible Vault](https://docs.ansibl
 
 ## Provisioning
 1. Go to [terraform](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform-ec2) directory
-  ```sh
-  cd terraform-ec2
-  ```
+   ```sh
+   cd terraform-ec2
+   ```
 2. Initialize Terraform backend and plugins
-  ```sh
-  terraform init
-  ```
+   ```sh
+   terraform init
+   ```
 3. Plan for the changes
-  ```sh
-  terraform plan -out main
-  ```
+   ```sh
+   terraform plan -out main
+   ```
 4. If the potential changes look fine, apply them
-  ```sh
-  terraform apply main
-  ```
+   ```sh
+   terraform apply main
+   ```

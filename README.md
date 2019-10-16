@@ -10,7 +10,8 @@ Automates HK VPN server provisioning and configuration. Made with ❤
 
 ## Features
 * Be ready to use your personal VPN server in under 2 minutes (if you use our [DigitalOcean](https://m.do.co/c/f873e16476e5) deployment)
-* Use [OpenVPN](https://openvpn.net/) and [Cloudflare](https://www.cloudflare.com/) DNS to protect your privacy
+* Use [OpenVPN](https://openvpn.net/) to secure your online activities
+* Use [Cloudflare](https://www.cloudflare.com/) and [OpenDNS](https://www.opendns.com/) as the primary and secondary DNS server respectively to protect your privacy
 * Use [Terraform](https://www.terraform.io/) to provision a server using [DigitalOcean Droplets](https://m.do.co/c/f873e16476e5), [Amazon EC2](https://aws.amazon.com/ec2/), [Amazon Lightsail](https://aws.amazon.com/lightsail/), [Microsoft Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/) or [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/) [Compute](https://www.oracle.com/cloud/compute/) instances.
 * Use [Ansible](https://www.ansible.com/) to setup OpenVPN server, certificate authority and system monitoring tools
 
