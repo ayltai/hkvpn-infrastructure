@@ -228,7 +228,7 @@ jobs:
           destination: hkvpn.ovpn
 
 workflows:
-  version: 2
+  version: 2.1
   workflow:
     jobs:
       - check

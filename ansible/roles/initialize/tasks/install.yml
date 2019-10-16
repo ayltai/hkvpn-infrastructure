@@ -11,6 +11,7 @@
   become: true
   apt:
     upgrade: dist
+    force: yes
   when:
     - ansible_distribution == 'Ubuntu'
     - ansible_distribution_version == '18.04'
