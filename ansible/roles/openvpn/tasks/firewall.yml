@@ -14,7 +14,7 @@
       # NAT table rules
       *nat
       :POSTROUTING ACCEPT [0:0]
-      -A POSTROUTING -s 10.8.0.0/8 -o eth0 -j MASQUERADE
+      -A POSTROUTING -s 10.8.0.0/8 -o {{ network_interface }} -j MASQUERADE
       COMMIT
 
 - name: Configure firewall forwarding policy

@@ -1,5 +1,5 @@
 resource "aws_security_group" "hkvpn" {
-  name        = "hknews"
+  name        = var.tag
   description = "HK VPN security group"
   vpc_id      = aws_vpc.hkvpn.id
 
