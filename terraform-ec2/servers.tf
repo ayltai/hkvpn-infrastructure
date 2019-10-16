@@ -20,7 +20,6 @@ resource "aws_instance" "hkvpn" {
 
 resource "null_resource" "exec" {
   depends_on = [
-    aws_instance.hkvpn,
     aws_eip.hkvpn,
   ]
 
