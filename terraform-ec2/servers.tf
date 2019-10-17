@@ -20,7 +20,7 @@ resource "aws_instance" "hkvpn" {
 
 resource "null_resource" "exec" {
   triggers = {
-    aws_eip.hkvpn.id,
+    aws_eip_id = aws_eip.hkvpn.id,
   }
 
   provisioner "remote-exec" {
