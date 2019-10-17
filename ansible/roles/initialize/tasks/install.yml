@@ -10,7 +10,7 @@
 - name: Update system
   become: true
   apt:
-    upgrade: dist
+    upgrade: yes
     force: yes
   when:
     - ansible_distribution == 'Ubuntu'
