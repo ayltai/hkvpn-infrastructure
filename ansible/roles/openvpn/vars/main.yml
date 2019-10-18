@@ -3,4 +3,5 @@ port: 1194
 network_interface: eth0
 client_name: hkvpn
 dns_1: 1.1.1.1
-dns_2: 8.8.8.8
+dns_2: 208.67.222.222
+hosts_blocked: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts

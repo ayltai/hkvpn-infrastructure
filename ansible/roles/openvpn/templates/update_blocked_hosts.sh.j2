@@ -1,0 +1,4 @@
+#!/bin/bash
+# {{ ansible_managed }}
+
+wget {{ hosts_blocked }} -O /etc/hosts_blocked && systemctl restart dnsmasq.service

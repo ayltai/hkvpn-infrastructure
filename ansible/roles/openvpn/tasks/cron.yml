@@ -1,0 +1,7 @@
+---
+- name: Create a cron job to update blocked hosts list
+  cron:
+    name: Update blocked hosts list
+    minute: "3"
+    hour: "3"
+    job: "{{ ansible_env.HOME }}/update_blocked_hosts.sh"

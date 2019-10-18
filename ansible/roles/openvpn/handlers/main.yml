@@ -6,3 +6,10 @@
     state: started
     daemon_reload: yes
     enabled: yes
+
+- name: Restart Dnsmasq
+  become: true
+  systemd:
+    name: dnsmasq
+    state: restarted
+    enabled: yes
