@@ -284,11 +284,11 @@ workflows:
             branches:
               only:
                 - master
-      - deploy_oracle:
-          requires:
-            - check
-            - approve_oracle
-          filters:
-            branches:
-              only:
-                - master
+#      - deploy_oracle:
+#          requires:
+#            - check
+#            - approve_oracle
+#          filters:
+#            branches:
+#              only:
+#                - master
