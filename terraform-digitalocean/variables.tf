@@ -20,7 +20,7 @@ variable "monitoring" {
 
 variable "public_key" {
   description = "The path of the SSH public key used to authenticate with the Droplet deployed"
-  default     = "/home/ubuntu/.ssh/hkvpn.pub"
+  default     = "/root/.ssh/hkvpn.pub"
 }
 
 variable "private_key" {

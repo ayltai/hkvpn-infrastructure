@@ -248,10 +248,10 @@ workflows:
           type: approval
           requires:
             - check
-      - approve_oracle:
-          type: approval
-          requires:
-            - check
+#      - approve_oracle:
+#          type: approval
+#          requires:
+#            - check
       - deploy_digitalocean:
           requires:
             - check
