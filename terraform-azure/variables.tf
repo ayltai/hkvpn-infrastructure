@@ -20,7 +20,7 @@ variable "image_sku" {
 
 variable "vm_size" {
   description = "The size of the VM to be deployed"
-  default     = "Standard_B1ls"
+  default     = "Standard_B1s"
 }
 
 variable "disk_type" {

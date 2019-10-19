@@ -18,13 +18,14 @@ Automates HK VPN server provisioning and configuration. Made with ❤
 
 ## Hosting cost
 
-|                         | DigitalOcean | AWS Lightsail | AWS EC2   | Azure       | Oracle                |
-|-------------------------|--------------|---------------|-----------|-------------|-----------------------|
-| Plan cost               | US$ 4.6      | US$ 5.0       | US$ 158   | US$ 215     | US$ 288               |
-| vCPU                    | 1            | 1             | 0.5       | 1           | 1                     |
-| Memory                  | 1 GB         | 1 GB          | 0.5 GB    | 0.5 GB      | 1 GB                  |
-| Traffic volume included | 1,000 GB     | 2,000 GB      | 100 GB    | 100 GB      | 1,000 GB              |
-| Deployment time         | 2 minutes    | 12 minutes    | 7 minutes | 180 munutes | [Infinity](Oracle.md) |
+|                         | DigitalOcean        | AWS Lightsail | AWS EC2   | Azure       | Oracle                 |
+|-------------------------|---------------------|---------------|-----------|-------------|------------------------|
+| Plan                    | Standard 1 vCPU 1GB | Micro         | t3a.micro | B1S         | VM.Standard.E2.1.Micro |
+| Frist year cost         | US$ 55              | US$ 60        | US$ 168   | US$ 238     | US$ 288                |
+| vCPU                    | 1                   | 1             | 2         | 1           | 1                      |
+| Memory                  | 1 GB                | 1 GB          | 1 GB      | 1 GB        | 1 GB                   |
+| Traffic volume included | 1,000 GB            | 2,000 GB      | 100 GB    | 100 GB      | 1,000 GB               |
+| Deployment time         | 2 minutes           | 12 minutes    | 7 minutes | 180 munutes | [Infinity](Oracle.md)  |
 
 ## Pre-deployment
 You need to `git clone` this repository and decide which cloud platform you want to run your VPN server, then follow the respective deployment instructions.
