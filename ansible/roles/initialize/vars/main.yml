@@ -1,4 +1,5 @@
 ---
+dist_upgrade: true
 ubuntu_livepath_enabled: false
 ubuntu_livepatch_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256
