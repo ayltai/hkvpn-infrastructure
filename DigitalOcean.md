@@ -36,19 +36,23 @@ You will need a key pair to authenticate with your deployed Droplet. Currently [
 The SSH certificate password is encrypted by [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html). You will need to specify a Vault password file in order to decrypt the password during the Ansible automation process. The file path is defined in [Let's Encrypt role](https://github.com/ayltai/hkvpn-infrastructure/tree/master/ansible/letsencrypt/vars/main.yml).
 
 ## Provisioning
-1. Go to [terraform](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform-digitalocean) directory
+1. Clone this repository
+   ```sh
+   git clone https://github.com/ayltai/hkvpn-infrastructure.git
+   ```
+2. Go to [terraform-digitalocean](https://github.com/ayltai/hkvpn-infrastructure/tree/master/terraform-digitalocean) directory
    ```sh
    cd terraform-digitalocean
    ```
-2. Initialize Terraform backend and plugins
+3. Initialize Terraform backend and plugins
    ```sh
    terraform init
    ```
-3. Plan for the changes
+4. Plan for the changes
    ```sh
    terraform plan -out main
    ```
-4. If the potential changes look fine, apply them
+5. If the potential changes look fine, apply them
    ```sh
    terraform apply main
    ```
