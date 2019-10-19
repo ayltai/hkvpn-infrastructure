@@ -12,20 +12,19 @@ Automates HK VPN server provisioning and configuration. Made with ❤
 * Be ready to use your personal VPN server in under 2 minutes (if you use our [DigitalOcean](https://m.do.co/c/f873e16476e5) deployment)
 * Use [OpenVPN](https://openvpn.net/) to secure your online activities
 * Use [Cloudflare](https://www.cloudflare.com/) and [OpenDNS](https://www.opendns.com/) as the primary and secondary DNS server respectively to protect your privacy
-* Use [Dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) to block ads, fake news and pornography at DNS level
 * Use [Terraform](https://www.terraform.io/) to provision a server using [DigitalOcean Droplets](https://m.do.co/c/f873e16476e5), [Amazon EC2](https://aws.amazon.com/ec2/), [Amazon Lightsail](https://aws.amazon.com/lightsail/), [Microsoft Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/) or [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/) [Compute](https://www.oracle.com/cloud/compute/) instances.
 * Use [Ansible](https://www.ansible.com/) to setup OpenVPN server, certificate authority and system monitoring tools
 
 ## Hosting cost
 
-|                         | DigitalOcean        | AWS Lightsail | AWS EC2   | Azure       | Oracle                 |
-|-------------------------|---------------------|---------------|-----------|-------------|------------------------|
-| Plan                    | Standard 1 vCPU 1GB | Micro         | t3a.micro | B1S         | VM.Standard.E2.1.Micro |
-| Frist year cost         | US$ 55              | US$ 60        | US$ 168   | US$ 238     | US$ 288                |
-| vCPU                    | 1                   | 1             | 2         | 1           | 1                      |
-| Memory                  | 1 GB                | 1 GB          | 1 GB      | 1 GB        | 1 GB                   |
-| Traffic volume included | 1,000 GB            | 2,000 GB      | 100 GB    | 100 GB      | 1,000 GB               |
-| Deployment time         | 2 minutes           | 12 minutes    | 7 minutes | 180 munutes | [Infinity](Oracle.md)  |
+|                         | DigitalOcean        | AWS Lightsail | AWS EC2   | Azure      | Oracle                 |
+|-------------------------|---------------------|---------------|-----------|------------|------------------------|
+| Plan                    | Standard 1 vCPU 1GB | Micro         | t3a.micro | B1S        | VM.Standard.E2.1.Micro |
+| Frist year cost         | US$ 55              | US$ 60        | US$ 168   | US$ 238    | US$ 288                |
+| vCPU                    | 1                   | 1             | 2         | 1          | 1                      |
+| Memory                  | 1 GB                | 1 GB          | 1 GB      | 1 GB       | 1 GB                   |
+| Traffic volume included | 1,000 GB            | 2,000 GB      | 100 GB    | 100 GB     | 1,000 GB               |
+| Deployment time         | 2 minutes           | 12 minutes    | 7 minutes | 13 munutes | [Infinity](Oracle.md)  |
 
 ## Pre-deployment
 You need to `git clone` this repository and decide which cloud platform you want to run your VPN server, then follow the respective deployment instructions.
