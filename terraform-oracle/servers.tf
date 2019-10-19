@@ -34,9 +34,10 @@ resource "oci_core_instance" "hkvpn" {
 }
 
 resource "null_resource" "exec" {
-  depends_on = [
-    oci_core_instance.hkvpn,
-  ]
+  triggers = {
+    oci_core_instance_id  = oci_core_instance.hkvpn.id,
+    oci_core_public_ip_id = oci_core_public_ip.hkvpn.id,
+  }
 
   provisioner "remote-exec" {
     inline = [

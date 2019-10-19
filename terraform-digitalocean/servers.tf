@@ -15,9 +15,11 @@ resource "digitalocean_droplet" "hkvpn" {
 }
 
 resource "null_resource" "exec" {
-  depends_on = [
-    digitalocean_droplet.hkvpn,
-  ]
+  triggers = {
+    digitalocean_droplet_id     = digitalocean_droplet.hkvpn.id,
+    digitalocean_floating_ip_id = digitalocean_floating_ip.hkvpn.id,
+    digitalocean_firewall_id    = digitalocean_firewall.hkvpn.id,
+  }
 
   provisioner "remote-exec" {
     inline = [

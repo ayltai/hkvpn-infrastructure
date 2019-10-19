@@ -7,9 +7,10 @@ resource "aws_lightsail_instance" "hkvpn" {
 }
 
 resource "null_resource" "exec" {
-  depends_on = [
-    aws_lightsail_instance.hkvpn,
-  ]
+  triggers = {
+    aws_lightsail_instance_id  = aws_lightsail_instance.hkvpn.id,
+    aws_lightsail_static_ip_id = aws_lightsail_static_ip.hkvpn.id,
+  }
 
   provisioner "remote-exec" {
     inline = [
