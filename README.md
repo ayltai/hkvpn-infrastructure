@@ -1,3 +1,4 @@
+![HK VPN](images/hkvpn.png)
 # HK VPN
 
 [![CircleCI](https://img.shields.io/circleci/project/github/ayltai/hkvpn-infrastructure/master.svg?style=flat)](https://circleci.com/gh/ayltai/hkvpn-infrastructure)
