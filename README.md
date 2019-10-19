@@ -28,7 +28,7 @@ HK VPN uses [OpenVPN](https://openvpn.net/), [Cloudflare](https://www.cloudflare
 | vCPU                    | 1                                        | 1                                                | 2                                    | 1                          | 1                      |
 | Memory                  | 1 GB                                     | 1 GB                                             | 1 GB                                 | 1 GB                       | 1 GB                   |
 | Traffic volume included | 1,000 GB                                 | 2,000 GB                                         | 100 GB                               | 100 GB                     | 1,000 GB               |
-| Deployment time         | 2 minutes                                | 12 minutes                                       | 7 minutes                            | 13 munutes                 | [Infinity](Oracle.md)  |
+| Deployment time         | 8 minutes                                | 12 minutes                                       | 7 minutes                            | 13 munutes                 | [Infinity](Oracle.md)  |
 
 ## Pre-deployment
 You need to `git clone` this repository and decide which cloud platform you want to run your VPN server, then follow the respective deployment instructions.
