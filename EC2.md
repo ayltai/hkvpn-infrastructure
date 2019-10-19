@@ -1,4 +1,7 @@
 # Deployment
+
+[![Amazon EC2](images/amazon_ec2.png)](https://aws.amazon.com/ec2/)
+
 This page shows you how to deploy HK VPN using [Amazon EC2](https://aws.amazon.com/ec2/).
 
 ## Prerequisites

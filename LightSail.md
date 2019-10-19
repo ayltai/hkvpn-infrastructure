@@ -1,4 +1,7 @@
 # Deployment
+
+[![Amazon Lightsail](images/amazon_lightsail.png)](https://aws.amazon.com/lightsail/)
+
 This page shows you how to deploy HK VPN using [Amazon Lightsail](https://aws.amazon.com/lightsail/).
 
 ## Prerequisites

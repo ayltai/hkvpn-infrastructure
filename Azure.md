@@ -1,4 +1,7 @@
 # Deployment
+
+[![Azure](images/azure.png)](https://azure.microsoft.com/)
+
 This page shows you how to deploy HK VPN using [Microsoft Azure](https://azure.microsoft.com/en-us/services/virtual-machines/).
 
 ## Prerequisites

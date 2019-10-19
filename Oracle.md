@@ -1,4 +1,7 @@
 # Deployment
+
+[![Oracle](images/oci.png)](https://www.oracle.com/cloud/)
+
 This page shows you how to deploy HK VPN using [Oracle Cloud Infrastructure (OCI)](https://www.oracle.com/cloud/) [Compute](https://www.oracle.com/cloud/compute/).
 
 ## Prerequisites

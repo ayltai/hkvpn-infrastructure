@@ -8,6 +8,10 @@
 
 Automates HK VPN server provisioning and configuration. Made with ❤
 
+HK VPN uses [OpenVPN](https://openvpn.net/), [Cloudflare](https://www.cloudflare.com/) and [OpenDNS](https://www.opendns.com/) to protect your privacy.
+
+[![OpenVPN](images/openvpn.png)](https://openvpn.net/) &nbsp;&nbsp;&nbsp; [![Cloudflare](images/cloudflare.png)](https://www.cloudflare.com/) &nbsp;&nbsp;&nbsp; [![OpenDNS](images/opendns.png)](https://www.opendns.com/)
+
 ## Features
 * Be ready to use your personal VPN server in under 2 minutes (if you use our [DigitalOcean](https://m.do.co/c/f873e16476e5) deployment)
 * Use [OpenVPN](https://openvpn.net/) to secure your online activities
@@ -17,14 +21,14 @@ Automates HK VPN server provisioning and configuration. Made with ❤
 
 ## Hosting cost
 
-|                         | DigitalOcean        | AWS Lightsail | AWS EC2   | Azure      | Oracle                 |
-|-------------------------|---------------------|---------------|-----------|------------|------------------------|
-| Plan                    | Standard 1 vCPU 1GB | Micro         | t3a.micro | B1S        | VM.Standard.E2.1.Micro |
-| Frist year cost         | US$ 55              | US$ 60        | US$ 168   | US$ 238    | US$ 288                |
-| vCPU                    | 1                   | 1             | 2         | 1          | 1                      |
-| Memory                  | 1 GB                | 1 GB          | 1 GB      | 1 GB       | 1 GB                   |
-| Traffic volume included | 1,000 GB            | 2,000 GB      | 100 GB    | 100 GB     | 1,000 GB               |
-| Deployment time         | 2 minutes           | 12 minutes    | 7 minutes | 13 munutes | [Infinity](Oracle.md)  |
+|                         | ![DigitalOcean](images/digitalocean.png) | ![Amazon Lightsail](images/amazon_lightsail.png) | ![Amazon EC2](images/amazon_ec2.png) | ![Azure](images/azure.png) | ![OCI](images/oci.png) |
+|-------------------------|------------------------------------------|--------------------------------------------------|--------------------------------------|----------------------------|------------------------|
+| Plan                    | Standard                                 | Micro                                            | t3a.micro                            | B1S                        | E2.1.Micro             |
+| Frist year cost         | US$ 55                                   | US$ 60                                           | US$ 168                              | US$ 238                    | US$ 288                |
+| vCPU                    | 1                                        | 1                                                | 2                                    | 1                          | 1                      |
+| Memory                  | 1 GB                                     | 1 GB                                             | 1 GB                                 | 1 GB                       | 1 GB                   |
+| Traffic volume included | 1,000 GB                                 | 2,000 GB                                         | 100 GB                               | 100 GB                     | 1,000 GB               |
+| Deployment time         | 2 minutes                                | 12 minutes                                       | 7 minutes                            | 13 munutes                 | [Infinity](Oracle.md)  |
 
 ## Pre-deployment
 You need to `git clone` this repository and decide which cloud platform you want to run your VPN server, then follow the respective deployment instructions.
@@ -41,6 +45,10 @@ You can deploy HK VPN to any of the following cloud platforms but I recommend ch
 [DigitalOcean](https://m.do.co/c/f873e16476e5) is recommended because for US$ 5/month it gives you 1TB bandwidth, which is pretty good for a typical VPN user. While [Amazon Lightsail](https://aws.amazon.com/lightsail/)'s US$ 5/month plan gives you 2TB bandwidth with similar hardware specifications, they don't offer promotional credits like [DigitalOcean](https://m.do.co/c/f873e16476e5) does. For instance, if you register a [DigitalOcean](https://m.do.co/c/f873e16476e5) account using this [promotional link](https://m.do.co/c/f873e16476e5), you will get US$ 50 for free.
 
 Another issue with [Amazon Lightsail](https://aws.amazon.com/lightsail/) is that the deployment is not fully automated and there are some [manual steps](LightSail.md) involved for the deployment.
+
+Terraform and Ansible are used for deployment.
+
+[![Terraform](images/terraform.png)](https://www.terraform.io/) &nbsp;&nbsp;&nbsp; [![Ansible](images/ansible.png)](https://www.ansible.com/)
 
 To deploy HK VPN, follow the documentation of the respective cloud platform:
 * [DigitalOcean](DigitalOcean.md)

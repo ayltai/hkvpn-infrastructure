@@ -1,4 +1,7 @@
 # Deployment
+
+[![DigitalOcean](images/digitalocean.png)](https://m.do.co/c/f873e16476e5)
+
 This page shows you how to deploy HK VPN using [DigitalOcean Droplets](https://m.do.co/c/f873e16476e5).
 
 ## Prerequisites
